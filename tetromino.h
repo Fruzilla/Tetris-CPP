@@ -34,8 +34,9 @@ public:
     QColor getColor(){return shape_color;}
     int getType();
 
-    void setX(int x);
-    void setY(int y);
+    void setX(int piece, int x);
+    void setY(int piece, int y);
+    void setCoords(int piece, int x, int y);
 
 private:
     int piece_coords[4][2]; //the 4 pieces' x and y coordinates
@@ -49,6 +50,8 @@ private:
     void create_piece();    //takes the piece type and assigns it its specific starting coordinates and color
     bool rotate_right();    //counter-clockwise rotation. Should this be handled here, or by the board?
     bool rotate_left();     //clockwise rotation
+
+    //todo: operators (equals) to copy variables
 };
 
 #endif // TETROMINO_H

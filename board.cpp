@@ -85,6 +85,28 @@ Board::holdPiece(){
         //tet = temp;
         //re-init the piece.
         //swap_hold = true;
+    if(swap_hold == false){
+        if(held_piece == NULL){ //no piece being held
+            held_piece = tet;
+            for(int i = 0; i < 4; i++){
+                held_piece.setCoords(i, -1, -1);
+            }
+            //clear pieces if they weren't already?
+        }
+
+        else{   //piece being held; need to swap
+            Tetromino temp = held_piece;
+            held_piece = tet;
+            tet = temp;
+            //change piece coordinates
+            for(int i = 0; i < 4; i++){
+                held_piece.setCoords(i, -1, -1);
+                tet.setCoords(i, tet.starting_coords[tet.getType(),i, 0],tet.starting_coords[tet.getType(),i, 1]);
+            }
+            //handle items?
+        }
+    }
+    swap_hold = true;
 }
 
 Board::nextPiece(){
