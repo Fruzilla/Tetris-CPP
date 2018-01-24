@@ -4,7 +4,7 @@
 //imports
 #include "piece.h"
 #include "tetromino.h"
-#include <QQueue>>
+#include "queue.h"
 
 //main class definition
 class Board{
@@ -17,10 +17,10 @@ public:
 
 private:
     //private variables
-    const int GRID_WIDTH = 10;
-    const int GRID_HEIGHT = 24;
+    static const int GRID_WIDTH = 10;
+    static const int GRID_HEIGHT = 24;
 
-    Piece grid[GRID_WIDTH[GRID_HEIGHT];             //the grid
+    Piece grid[GRID_WIDTH][GRID_HEIGHT];             //the grid
     Tetromino tet;                //the current piece
     int score;                      //points for putting down a piece and for clearing lines
     int lines_cleared;              //track lines cleared, use to determine speed

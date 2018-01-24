@@ -1,22 +1,22 @@
 #include "board.h"
 #include "tetromino.h"
 
-Board::startGame(){
+void Board::startGame(){
 
 }
 
-Board::rotateRight(){
+bool Board::rotateRight(){
     //check if it can be rotated
     //rotate it
 
 }
 
-Board::rotateLeft(){
+bool Board::rotateLeft(){
     //check if it can be rotated
     //rotate it
 }
 
-Board::dropPiece(){
+void Board::dropPiece(){
     //keep dropping the piece until its pieces can't go any further.
     while(true){
         //check if it can be moved down
@@ -25,7 +25,7 @@ Board::dropPiece(){
 
 }
 
-Board::moveLeft(){
+bool Board::moveLeft(){
     //check if piece can be moved
     for(int i = 0; i < 4; i++){
         if(tet.getX(i) - 1 < 0){
@@ -41,7 +41,7 @@ Board::moveLeft(){
     return true;
 }
 
-Board::moveRight(){
+bool Board::moveRight(){
     //check if piece can be moved
     for(int i = 0; i < 4; i++){
         if(tet.getX(i) + 1 > (GRID_WIDTH-1) ){
@@ -58,7 +58,7 @@ Board::moveRight(){
 }
 
 
-Board::clearLines(){
+int Board::clearLines(){
     int numRowsCleared = 0;
     int startingRow = -1;
     //for each row
@@ -69,9 +69,10 @@ Board::clearLines(){
                 //numRowsCleared++;
 
     //shift the rows downward
+	return numRowsCleared;
 }
 
-Board::holdPiece(){
+void Board::holdPiece(){
     //swap out the existing piece with the held piece, if any.
     //if swap_hold == false
     //if no piece is being held
@@ -109,11 +110,11 @@ Board::holdPiece(){
     swap_hold = true;
 }
 
-Board::nextPiece(){
+void Board::nextPiece(){
     //randomly generate the type of the next piece and add to queue.
 }
 
-Board::initPiece(){
+bool Board::initPiece(){
     //check that the piece's spaces are full. return false if they're not.
     for(int i = 0; i < 4; i++){
 

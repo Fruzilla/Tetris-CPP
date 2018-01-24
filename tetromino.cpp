@@ -1,5 +1,9 @@
 #include "tetromino.h"
 #include "piece.h"
+#include <SFML/Graphics/Color.hpp>
+
+using namespace std;
+using namespace sf;
 
 Tetromino::Tetromino(){
    /* int piece_coords[4][2]; //the 4 pieces' x and y coordinates
@@ -22,7 +26,7 @@ Tetromino::Tetromino(int type){
     item_piece = -1;
 }
 
-Tetromino::Tetromino(int type, QColor color){
+Tetromino::Tetromino(int type, Color color){
     shape_type = type;
     shape_color = color;
     for(int i = 0; i < 4; i++){
@@ -47,7 +51,7 @@ Tetromino::Tetromino(int type, int piece_id){
     item_piece = piece_id;
 }
 
-Tetromino::Tetromino(int type, QColor color, int piece_id){
+Tetromino::Tetromino(int type, Color color, int piece_id){
     shape_type = type;
     shape_color = color;
     for(int i = 0; i < 4; i++){
@@ -59,7 +63,7 @@ Tetromino::Tetromino(int type, QColor color, int piece_id){
     item_piece = piece_id;
 }
 
-Tetromino::create_piece(){
+void Tetromino::create_piece(){
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 2; j++){
             piece_coords[i][j] = starting_coords[shape_type][i][j];
