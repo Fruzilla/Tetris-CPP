@@ -17,20 +17,22 @@ public:
 
 private:
     //private variables
-    static const int GRID_WIDTH = 10;
+    static const int GRID_WIDTH = 10; //might adjust grid size to create an extra "dead zone" at the top
     static const int GRID_HEIGHT = 24;
 
     Piece grid[GRID_WIDTH][GRID_HEIGHT];             //the grid
-    Tetromino tet;                //the current piece
+    Tetromino tet;					//the current piece (pointer to the piece that's head of the queue/list)
     int score;                      //points for putting down a piece and for clearing lines
-    int lines_cleared;              //track lines cleared, use to determine speed
+    int lines_cleared;              //track lines cleared, use to determine speed?
+	int speed;						//the pace of the game "pulses"
     int level;                      //or use size_t (can't be negative)
     int item_id;                    //if there's an item, store its id. 0 if none (or negative), then different ints for each item
     Tetromino held_piece;           //held piece (use either a tetronimo class, or an int)
-    QQueue<Tetronimo> shape_queue;  //Queue for upcoming pieces (either use Piece class or ints). Size of 6.
+    Queue<int> shape_queue;			//Queue for upcoming pieces (either use Piece class or ints). Size of 6.
     bool swap_hold;                 //keep track of whether a piece was swapped with the held
-    bool pieceInPlay;               //track whether a piece is currently in play
-    //limit the number of ratations
+    bool pieceInPlay;               //track whether a tetronimo piece is currently in play
+	int gameMode;					//current play mode	
+    //limit the number of rotations?
 
     //private functions
     void startGame();               //initialize the pieces, score, level
@@ -82,5 +84,32 @@ private:
  *
  *  Others can be stored in the main (ie. using items)
  */
+
+
+/*
+GAME OUTLINE:
+
+Initialize board (and all pieces)
+
+Create tetronimos (for the queue and the first piece) *Pointer to first in queue = player piece
+
+Initialize the held piece(?)
+
+Move the player piece down according to the board's speed
+
+Check for rotation and player input
+
+Once it hits the bottom, lock it. 
+
+Destroy the piece (pop the queue), set the player piece equal to the next in the queue, and initialize it.
+
+Repeat until the initializing piece fails (can't place a tetronimo at its default location)
+
+
+
+
+
+
+*/
 
 #endif // BOARD_H

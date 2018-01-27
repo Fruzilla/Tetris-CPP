@@ -17,7 +17,7 @@ public:
 
 private:
     //  private variables
-    Color piece_color; //the piece color. String which equals color tuple (ie RED = (255, 0, 0). Use QColor (r, g b)
+    Color piece_color; //the piece color. String which equals color tuple (ie RED = (255, 0, 0). Use Color (r, g b)
     int item_id;        //0 if no item, the item id if there is. Define items in main? Or separate cpp
     bool is_set;        //whether this piece is filled or not
     //int x;              //x coordinate. might not be necessary?

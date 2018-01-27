@@ -18,8 +18,8 @@ Tetromino::Tetromino(int type){
     shape_color = colors[type];
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 2; j++){
-            //piece_coords[type][i][j] = starting_coords[type][i][j];
-            piece_coords[type][i][j] = -1;
+            piece_coords[i][j] = starting_coords[type][i][j];
+            //piece_coords[type][i][j] = -1;
         }
     }
     has_item = false;
@@ -31,33 +31,33 @@ Tetromino::Tetromino(int type, Color color){
     shape_color = color;
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 2; j++){
-            //piece_coords[type][i][j] = starting_coords[type][i][j];
-            piece_coords[type][i][j] = -1;
+            piece_coords[i][j] = starting_coords[type][i][j];
+            //piece_coords[i][j] = -1;
         }
     }
     has_item = false;
     item_piece = -1;
 }
 
-Tetromino::Tetromino(int type, int piece_id){
+Tetromino::Tetromino(int type, int piece_id, bool has_item = true){
     shape_type = type;
     shape_color = colors[type];
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 2; j++){
-            //piece_coords[type][i][j] = starting_coords[type][i][j];
-            piece_coords[type][i][j] = -1;
+            piece_coords[i][j] = starting_coords[type][i][j];
+            //piece_coords[type][i][j] = -1;
         }
     }
     item_piece = piece_id;
 }
 
-Tetromino::Tetromino(int type, Color color, int piece_id){
+Tetromino::Tetromino(int type, Color color, int piece_id, bool has_item = true){
     shape_type = type;
     shape_color = color;
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 2; j++){
-            //piece_coords[type][i][j] = starting_coords[type][i][j];
-            piece_coords[type][i][j] = -1;
+            piece_coords[i][j] = starting_coords[type][i][j];
+            //piece_coords[i][j] = -1;
         }
     }
     item_piece = piece_id;
