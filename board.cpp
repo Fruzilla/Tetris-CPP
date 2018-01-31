@@ -102,7 +102,7 @@ void Board::holdPiece(){
             //change piece coordinates
             for(int i = 0; i < 4; i++){
                 held_piece.setCoords(i, -1, -1);
-                tet.setCoords(i, tet.starting_coords[tet.getType(),i, 0],tet.starting_coords[tet.getType(),i, 1]);
+                tet.setCoords(i, tet.starting_coords[tet.getType(),i, 0], tet.starting_coords[tet.getType(),i, 1]);
             }
             //handle items?
         }
@@ -115,7 +115,7 @@ void Board::nextPiece(){
 }
 
 bool Board::initPiece(){
-    //check that the piece's spaces are full. return false if they're not.
+    //check that the piece's spaces are full. return false if they're not, ending the game.
     for(int i = 0; i < 4; i++){
 
     }

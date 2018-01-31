@@ -1,11 +1,11 @@
 #ifndef TETROMINO_H
 #define TETROMINO_H
 
+#include <SFML/Graphics/Color.hpp>
+#include <random>
+
 using namespace std;
 using namespace sf;
-
-#include<SFML/Graphics/Color.hpp>
-#include <random>
 
 //The shapes we'll control and generate to play the game.
 
@@ -22,27 +22,22 @@ public:
         {{4, 1}, {4, 2}, {5, 2}, {5, 3}},
     };
 
-//can't make an array of sfml colors. probably much simpler to make an array of strings instead of color objects.
-
-//   const sf::Color colors[7] = {     //colors for each shape
-//       sf::Color("cyan"), sf::Color("yellow"), sf::Color("purple"), sf::Color("orange"), sf::Color("blue"), sf::Color("green"), sf::Color("red")
-//   };
-
 //move to board?
-	const string colors[7] = {
-		"cyan",
-		"yelow",
-		"purple",
-		"orange",
-		"blue",
-		"green",
-		"red"	
+	const Color colors[7] = {
+		Color::Cyan,		//cyan for line
+		Color::Yellow,		//yellow for square
+		Color::Magenta,		//purple for T (try Magenta, otherwise make a purple)
+		Color(255, 165, 0),	//orange for L
+		Color::Blue,		//blue for reverse L
+		Color::Green,		//green for S
+		Color::Red			//red for Z
 	};
 
 	//constructors
     Tetromino();																		//default. may not be called.
     Tetromino(int type);																//passes in piece type (t, z, l, ect.)
     Tetromino(int type, Color color);													//piece type and custom color (color is already made)
+	//copy constructor?
 
 	Tetromino(int type, Color color, int piece_id, bool has_item = true);				//piece with item, set color, and which piece contains the item. random item
 	Tetromino(int type, int piece_id, bool has_item = true);							//piece with item, uses default shape color, which piece for the item. random item
@@ -51,15 +46,20 @@ public:
     Tetromino(int type, int piece_id, int item_id, bool has_item = true);				//set item but not color
 
     //gets
-    int getX(int piece);					//returns the x coordinate of a specific piece
-    int getY(int piece);					//returns the y coordinate of a specific piece
-    Color getColor(){return shape_color;}	//returns the piece color
-    int getType();							//returns the piece type
+	int getX(int piece) { return piece_coords[piece][0]; };		//returns the x coordinate of a specific piece
+	int getY(int piece) { return piece_coords[piece][1]; };		//returns the y coordinate of a specific piece
+    Color getColor(){return shape_color;}						//returns the piece color
+	int getType() { return shape_type; };						//returns the piece type
 
 	//sets
-    void setX(int piece, int x);
-    void setY(int piece, int y);
-    void setCoords(int piece, int x, int y);
+	void setX(int piece, int x) { piece_coords[piece][0] = x; };	//sets the x of a piece
+	void setY(int piece, int y) { piece_coords[piece][1] = y; };	//sets the y of a piece
+	void setColor(Color c) { shape_color = c; };					//sets the piece color
+	void setType(int type) { shape_type = type; };					//sets the piece type
+	void setCoords(int piece, int x, int y) { piece_coords[piece][0] = x; piece_coords[piece][1] = y; };	//sets the x and y of a piece
+
+	//operators
+	//Tetromino& operator =(const Tetromino& t); //copy the coords, type, color, items
 
 private:
 	//variables
@@ -73,12 +73,10 @@ private:
 
 	//functions
     //these might all be handled by the board. Create_piece needs access to board pieces. Board should take shape color and colorize pieces.
-    void create_piece();    //takes the piece type and assigns it its specific starting coordinates and color
-    bool rotate_right();    //counter-clockwise rotation. Should this be handled here, or by the board?
-    bool rotate_left();     //clockwise rotation
-	//function to hold piece, change its coordinates
+    void reset_piece();		//resets the piece coordinates to its default
+    bool rotate_right();	//counter-clockwise rotation. Should this be handled here, or by the board?
+    bool rotate_left();		//clockwise rotation
 
-    //todo: operators (equals) to copy variables
-};
+	//deconstructor
 
 #endif // TETROMINO_H

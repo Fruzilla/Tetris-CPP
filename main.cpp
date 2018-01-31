@@ -1,12 +1,17 @@
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
+#include "tetromino.h"
+#include "piece.h"
+//#include "board.h"
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <random>
 
-int main(int argc, char *argv[])
+using namespace std;
+using namespace sf;
+
+int main()
 {
-    QGuiApplication app(argc, argv);
-
-    QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
-    return app.exec();
+	
+	Tetromino t1 = Tetromino();
+	Piece p1 = Piece();
 }

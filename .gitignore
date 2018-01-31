@@ -3,3 +3,9 @@
 *.pro.user
 *.vcxproj
 *.filters
+*.log
+*.tlog
+*.lastbuildstate
+*unsuccessfulbuild
+*.idb
+*.pdb
