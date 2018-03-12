@@ -9,3 +9,4 @@
 *unsuccessfulbuild
 *.idb
 *.pdb
+*.obj

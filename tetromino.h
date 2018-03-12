@@ -48,7 +48,7 @@ public:
 	//gets
 	int getX(int piece) { return piece_coords[piece][0]; };		//returns the x coordinate of a specific piece
 	int getY(int piece) { return piece_coords[piece][1]; };		//returns the y coordinate of a specific piece
-	Color getColor() { return shape_color; }						//returns the piece color
+	Color getColor() { return shape_color; }					//returns the piece color
 	int getType() { return shape_type; };						//returns the piece type
 
 	//sets

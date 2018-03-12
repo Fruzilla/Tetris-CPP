@@ -8,10 +8,11 @@ using namespace sf;
 //The pieces that will fill the board grid.
 
 class Piece{
+	friend class Board;			//Allow board to access and manipulate the piece
 public:
-    Piece();																		//default. white, no item, not set
-    Piece(Color color, int item_id = 0, bool is_set = true){piece_color = color;}	//pass a color
-    Piece(Color color, int i_id, bool is_set = true );								//pass color, item id
+    Piece();						//default. white, no item, not set
+	Piece(Color color);				//pass a color
+    Piece(Color color, int i_id);	//pass color, item id
 
 private:
     //  private variables
