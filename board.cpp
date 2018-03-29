@@ -35,7 +35,7 @@ bool Board::moveLeft(){
 
     //move the pieces
     for(int i = 0; i < 4; i++){
-        tet.setX(tet.getX(i) - 1);
+        tet.setX(i, tet.getX(i) - 1);
     }
 
     return true;
@@ -51,7 +51,7 @@ bool Board::moveRight(){
 
     //move the pieces
     for(int i = 0; i < 4; i++){
-        tet.setX(tet.getX(i) + 1);
+        tet.setX(i, tet.getX(i) + 1);
     }
 
     return true;

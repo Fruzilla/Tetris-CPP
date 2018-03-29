@@ -34,16 +34,16 @@ public:
 	};
 
 	//constructors
-	Tetromino();																		//default. may not be called.
-	Tetromino(int type);																//passes in piece type (t, z, l, ect.)
-	Tetromino(int type, Color color);													//piece type and custom color (color is already made)
+	Tetromino();															//default. may not be called.
+	Tetromino(int type);													//passes in piece type (t, z, l, ect.)
+	Tetromino(int type, Color color);										//piece type and custom color (color is already made)
 	//copy constructor?
 
-	Tetromino(int type, Color color, int piece_id, bool has_item = true);				//piece with item, set color, and which piece contains the item. random item
-	Tetromino(int type, int piece_id, bool has_item = true);							//piece with item, uses default shape color, which piece for the item. random item
+	Tetromino(int type, Color color, int piece_id);							//piece with item, set color, and which piece contains the item. random item
+	Tetromino(int type, int piece_id);										//piece with item, uses default shape color, which piece for the item. random item
 
-	Tetromino(int type, Color color, int piece_id, int item_id, bool has_item = true);	//set color and item
-	Tetromino(int type, int piece_id, int item_id, bool has_item = true);				//set item but not color
+	Tetromino(int type, Color color, int piece_id, int item_id);			//set color and item
+	Tetromino(int type, int piece_id, int item_id);							//set item but not color
 
 	//gets
 	int getX(int piece) { return piece_coords[piece][0]; };		//returns the x coordinate of a specific piece

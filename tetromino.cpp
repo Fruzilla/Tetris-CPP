@@ -24,33 +24,37 @@ Tetromino::Tetromino(int type, Color color){
     item_piece = -1;
 }
 
-Tetromino::Tetromino(int type, int piece_id, bool has_item = true){
+Tetromino::Tetromino(int type, int piece_id){
     shape_type = type;
     shape_color = colors[type];
 	reset_piece();
     item_piece = piece_id;
+	has_item = true;
 }
 
-Tetromino::Tetromino(int type, Color color, int piece_id, bool has_item = true){
+Tetromino::Tetromino(int type, Color color, int piece_id){
     shape_type = type;
     shape_color = color;
 	reset_piece();
     item_piece = piece_id;
+	has_item = true;
 }
 
-Tetromino::Tetromino(int type, Color color, int piece_id, int item_id, bool has_item = true) {
+Tetromino::Tetromino(int type, Color color, int piece_id, int item_id) {
 	shape_type = type;
 	shape_color = color;
 	reset_piece();
 	item_piece = piece_id;
 	item_type = item_id;
+	has_item = true;
 }
 
-Tetromino::Tetromino(int type, int piece_id, int item_id, bool has_item = true) {
+Tetromino::Tetromino(int type, int piece_id, int item_id) {
 	shape_type = type;
 	reset_piece();
 	item_piece = piece_id;
 	item_type = item_id;
+	has_item = true;
 }
 
 void Tetromino::reset_piece(){
