@@ -9,7 +9,7 @@ Queue::Queue() {
 
 Tetromino Queue::pop() {
 	if (isEmpty()) {
-		return Tetromino();	//?
+		return NULL;
 	}
 	Tetromino temp = tet_queue[front];
 	front++;

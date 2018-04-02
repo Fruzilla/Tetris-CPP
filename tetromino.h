@@ -59,7 +59,7 @@ public:
 	void setCoords(int piece, int x, int y) { piece_coords[piece][0] = x; piece_coords[piece][1] = y; };	//sets the x and y of a piece
 
 	//operators
-	//Tetromino& operator =(const Tetromino& t); //copy the coords, type, color, items
+	Tetromino& operator =(const Tetromino& t); //copy the coords, type, color, items
 
 private:
 	//variables
