@@ -28,7 +28,7 @@ private:
     int level;                      //or use size_t (can't be negative)
     int item_id;                    //if there's an item, store its id. 0 if none (or negative), then different ints for each item
     Tetromino held_piece;           //held piece (use either a tetronimo class, or an int)
-    Queue<int> shape_queue;			//Queue for upcoming pieces (either use Piece class or ints). Size of 6.
+    Queue shape_queue;				//Queue for upcoming pieces (either use Piece class or ints). Size of 6.
     bool swap_hold;                 //keep track of whether a piece was swapped with the held
     bool pieceInPlay;               //track whether a tetronimo piece is currently in play
 	int gameMode;					//current play mode	

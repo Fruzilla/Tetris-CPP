@@ -6,7 +6,6 @@
 class Queue{
 public:
 	Queue();
-	Queue(int c);
 	Tetromino pop();		//remove from front of queue
 	void add(Tetromino t);	//add to end of queue
 
@@ -18,8 +17,9 @@ public:
 	Tetromino getRear();	//returns the item at the rear of the queue (does not alter queue)
 
 private:
-	int front, rear, size, capacity;
-	Tetromino* tet_queue[];
+	int front, rear, size;
+	static const int CAPACITY = 6;
+	Tetromino tet_queue[CAPACITY];
 };
 
 #endif // QUEUE_H

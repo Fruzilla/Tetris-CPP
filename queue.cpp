@@ -2,26 +2,16 @@
 #include "tetromino.h"
 
 Queue::Queue() {
-	capacity = 6;
 	front = 0;
-	rear = capacity - 1;
+	rear = CAPACITY - 1;
 	size = 0;
-	*tet_queue = new Tetromino[capacity];
-}
-
-Queue::Queue(int c) {
-	capacity = c;
-	front = 0;
-	rear = capacity - 1;
-	size = 0;
-	*tet_queue = new Tetromino[capacity];
 }
 
 Tetromino Queue::pop() {
 	if (isEmpty()) {
-		return;
+		return Tetromino();	//?
 	}
-	Tetromino temp = *tet_queue[front];
+	Tetromino temp = tet_queue[front];
 	front++;
 	size--;
 	return temp;
@@ -31,17 +21,17 @@ void Queue::add(Tetromino t) {
 	if (isFull()) {
 		return;
 	}
-	rear = (rear + 1) % capacity;
-	*tet_queue[rear] = t;
+	rear = (rear + 1) % CAPACITY;
+	tet_queue[rear] = t;
 	size++;
 }
 
 int Queue::getCapacity() {
-	return capacity;
+	return CAPACITY;
 }
 
 bool Queue::isFull() {
-	return (size >= capacity);
+	return (size >= CAPACITY);
 }
 
 bool Queue::isEmpty() {
@@ -49,10 +39,10 @@ bool Queue::isEmpty() {
 }
 
 Tetromino Queue::getFront() {
-	return *tet_queue[front];
+	return tet_queue[front];
 }
 
 Tetromino Queue::getRear() {
-	return *tet_queue[rear];
+	return tet_queue[rear];
 }
 
