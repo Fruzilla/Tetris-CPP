@@ -5,6 +5,7 @@ Tetromino::Tetromino(){
 	shape_color = colors[shape_type];
 	has_item = false;
 	item_piece = -1;
+	item_type = -1;
 	reset_piece();
 }
 
@@ -14,6 +15,7 @@ Tetromino::Tetromino(int type){
 	reset_piece();
     has_item = false;
     item_piece = -1;
+	item_type = -1;
 }
 
 Tetromino::Tetromino(int type, Color color){
@@ -29,6 +31,7 @@ Tetromino::Tetromino(int type, int piece_id){
     shape_color = colors[type];
 	reset_piece();
     item_piece = piece_id;
+	item_type = -1;
 	has_item = true;
 }
 
@@ -38,6 +41,7 @@ Tetromino::Tetromino(int type, Color color, int piece_id){
 	reset_piece();
     item_piece = piece_id;
 	has_item = true;
+	item_type = -1;
 }
 
 Tetromino::Tetromino(int type, Color color, int piece_id, int item_id) {
@@ -117,8 +121,34 @@ bool Tetromino::operator ==(Tetromino& t) {
 }
 
 bool Tetromino::operator ==(int t) {
-	if (this == 0 && t == 0) {
+	if (this == NULL) {
 		return true;
 	}
 	return false;
+}
+
+ostream& operator <<(ostream &os, const Tetromino& t) {
+	char names[7][10] = {
+		"Line",
+		"Square",
+		"T",
+		"L",
+		"Reverse L",
+		"S",
+		"Z"
+	};
+	os << "\n-------TET----------" << "\nTetromino" << "\nType: " << t.shape_type;
+	os << " (" << names[t.shape_type] << ")\n";
+	os << "Color: " << t.shape_color.toInteger();
+	for (int i = 0; i < 4; i++) {
+		os << "\nPiece " << i + 1 << ": ";
+		for (int j = 0; j < 2; j++) {
+			os << t.piece_coords[i][j] << " ";
+		}
+	}
+	os << "\nHas Item: " << t.has_item << endl;
+	os << "Item Type: " << t.item_type << endl;
+	os << "Item Piece: " << t.item_piece << endl;
+	os << "-------END----------\n";
+	return os;
 }

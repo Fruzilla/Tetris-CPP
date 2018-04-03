@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics/Color.hpp>
 #include <random>
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -33,6 +34,16 @@ public:
 		Color::Red			//red for Z
 	};
 
+	const string names[7] = {	//may not need
+		"Line",
+		"Square",
+		"T",
+		"L",
+		"Reverse L",
+		"S",
+		"Z"
+	};
+
 	//constructors
 	Tetromino();															//default. may not be called.
 	Tetromino(int type);													//passes in piece type (t, z, l, ect.)
@@ -61,7 +72,8 @@ public:
 	//operators
 	Tetromino& operator =(Tetromino& t);	//copy the coords, type, color, items
 	bool operator ==(Tetromino& t);			//check if equal, and also check if null
-	bool operator ==(int t);
+	bool operator ==(int t);				//check for null
+	friend std::ostream & operator <<(ostream &os, const Tetromino& t);
 
 private:
 	//variables
