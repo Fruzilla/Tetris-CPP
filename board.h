@@ -47,7 +47,7 @@ private:
     bool initPiece();               //give the piece its default position and color, if possible.
 
     //Graphics
-    void drawBoard();
+    const void drawBoard();
 };
 
 /* Functions for:

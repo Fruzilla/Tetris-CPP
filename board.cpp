@@ -1,6 +1,8 @@
 #include "board.h"
 #include "tetromino.h"
 
+//TODO: Finish implementing functions
+
 void Board::startGame(){
 
 }
@@ -9,11 +11,14 @@ bool Board::rotateRight(){
     //check if it can be rotated
     //rotate it
 
+	return true; //temp
 }
 
 bool Board::rotateLeft(){
     //check if it can be rotated
     //rotate it
+
+	return true; //temp
 }
 
 void Board::dropPiece(){
@@ -121,4 +126,6 @@ bool Board::initPiece(){
     }
 
     //otherwise set the spaces to the piece's color and mark them as occupied.
+
+	return true; //temp
 }
