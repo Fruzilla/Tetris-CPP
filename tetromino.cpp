@@ -1,5 +1,7 @@
 #include "tetromino.h"
 
+using namespace std;
+
 Tetromino::Tetromino(){
 	shape_type = 0;
 	shape_color = colors[shape_type];
@@ -139,12 +141,10 @@ ostream& operator <<(ostream &os, const Tetromino& t) {
 	};
 	os << "\n-------TET----------" << "\nTetromino" << "\nType: " << t.shape_type;
 	os << " (" << names[t.shape_type] << ")\n";
-	os << "Color: " << t.shape_color.toInteger();
+	os << "Color: R-" << int(t.shape_color.r) << " G-" << int(t.shape_color.g) << " B-" << int(t.shape_color.b);
 	for (int i = 0; i < 4; i++) {
-		os << "\nPiece " << i + 1 << ": ";
-		for (int j = 0; j < 2; j++) {
-			os << t.piece_coords[i][j] << " ";
-		}
+		os << "\nPiece " << i + 1 << ": X " << t.piece_coords[i][0] << " Y " << t.piece_coords[i][1];
+		
 	}
 	os << "\nHas Item: " << t.has_item << endl;
 	os << "Item Type: " << t.item_type << endl;
