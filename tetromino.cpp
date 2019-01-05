@@ -140,16 +140,15 @@ ostream& operator <<(ostream &os, const Tetromino& t) {
 		"S",
 		"Z"
 	};
-	os << "\n-------TET----------" << "\nTetromino" << "\nType: " << t.shape_type;
-	os << " (" << names[t.shape_type] << ")\n";
-	os << "Color: R-" << int(t.shape_color.r) << " G-" << int(t.shape_color.g) << " B-" << int(t.shape_color.b);
+	os << "\n-------TET----------" << "\nType: " << t.shape_type;
+	os << " (" << names[t.shape_type] << ")\t";
+	os << "Color: R-" << int(t.shape_color.r) << " G-" << int(t.shape_color.g) << " B-" << int(t.shape_color.b) << endl << "Piece ";
 	for (int i = 0; i < 4; i++) {
-		os << "\nPiece " << i + 1 << ": X " << t.piece_coords[i][0] << " Y " << t.piece_coords[i][1];
-		
+		os << i + 1 << ": (" << t.piece_coords[i][0] << ", " << t.piece_coords[i][1] << ")   ";
 	}
-	os << "\nHas Item: " << t.has_item << endl;
-	os << "Item Type: " << t.item_type << endl;
-	os << "Item Piece: " << t.item_piece << endl;
+	os << "\nHas Item: " << t.has_item;
+	os << "\tItem Type: " << t.item_type;
+	os << "\tItem Piece: " << t.item_piece << endl;
 	os << "-------END----------\n";
 	return os;
 }
