@@ -4,27 +4,54 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <random>
+#include <stdlib.h>
 #include <conio.h>
 #include <iostream>
 
 using namespace std;
 using namespace sf;
 
-void test();
+void debugClasses();	//starts a simple text ui to test classes and functions
+void tetTest();			//test Tetromino class and functions
+void boardTest();		//test Board class and functions
 
 int main()
 {
-	test();
+	debugClasses();
 }
 
-void test() {
-	cout << "Hey world" << endl;
+void debugClasses() {
+	cout << "Welcome to the Tetris class tester and debugger.\n\n\nSelect an option:\n\n\t1. Tetromino testing\n\t2. Board testing\n\tq. Quit";
+	while (true){
+		char input = _getch();
+		switch (input) {
+			case '1':
+				cout << "\n\nStarting the Tetromino test.\n\n";
+				tetTest();
+				cout << "\nWelcome to the Tetris class tester and debugger.\n\n\nSelect an option:\n\n\t1. Tetromino testing\n\t2. Board testing\n\tq. Quit";
+				break;
+			case '2': 
+				cout << "\n\nStarting the Board test.\n\n";
+				boardTest();
+				cout << "\nWelcome to the Tetris class tester and debugger.\n\n\nSelect an option:\n\n\t1. Tetromino testing\n\t2. Board testing\n\tq. Quit";
+				break;
+			case 'q':
+				return;
+			default:
+				cout << "\n\nBad input, try again";
+				break;
+		}
+	}
+}
+
+void tetTest() {
+	cout << "Hey world" << std::boolalpha << endl;
 	Tetromino t1 = Tetromino();
 	Piece p1 = Piece();
 
 	Tetromino t2 = Tetromino(3);
 	Queue piece_queue = Queue();
+	cout << "New queue is empty: " << piece_queue.isEmpty() << endl;
 
 	Tetromino t_null = piece_queue.pop();
 
@@ -41,25 +68,56 @@ void test() {
 	piece_queue.add(t1); //extra
 
 	Tetromino t3 = piece_queue.pop();
-	cout << "t3 type: " << t3.getType() << endl;
+	cout << "\nt3 type: " << t3.getType() << endl;
 
 	Tetromino t4 = NULL;
 	if (t4 == NULL) {
 		cout << "t4 is null" << endl;
 	}
 	else {
-		cout << "t4 is NOT null (should be null)" << endl;
+		cout << "t4 is NOT null (should be null)" << endl << t4 << endl;
 	}
 	Tetromino t5 = t3;
 	cout << "t5 type: " << t5.getType() << endl;
 	if (t3 == t5) {
-		cout << "t3 and t5 are identical.";
+		cout << "t3 and t5 are identical.\n";
 	}
 	else {
-		cout << "t3 and t5 are NOT identical.";
+		cout << "t3 and t5 are NOT identical.\n";
 	}
 
 	cout << t3;
 
-	_getch();
+}
+
+void boardTest() {
+	srand(time(NULL));
+	Board b1 = Board();
+
+	cout << "\nTesting new piece generation.";
+	b1.startGame();
+
+	cout << "\nThe current piece is:\n" << b1.getCurrentPiece();
+
+	cout << "\nThe queue currently contains: \n";
+	Queue q = b1.getQueue();
+	int temp = q.getCapacity();
+	for (int i = 0; i < q.getCapacity(); i++) {
+		cout << q.pop();
+	}
+
+	cout << "\nResetting the queue and current piece.";
+	b1.startGame();
+
+	cout << "\nCurrent piece is: \n" << b1.getCurrentPiece();
+	cout << "\nNext piece in queue is: \n" << b1.getQueue().getFront();
+
+	cout << "\nProgressing the game.";
+	b1.nextPiece();
+	
+	cout << "\nNew current piece is: \n" << b1.getCurrentPiece();
+	cout << "\nNew next piece in queue is: \n" << b1.getQueue().getFront();
+
+	
+	
 }
