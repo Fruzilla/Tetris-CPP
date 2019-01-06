@@ -10,11 +10,11 @@ Board::Board() {
 	speed = 0;						//the pace of the game "pulses"
 	level = 0;                      //or use size_t (can't be negative)
 	item_id = 0;                    //if there's an item, store its id. 0 if none (or negative), then different ints for each item
-	Tetromino held_piece;           //held piece (use either a tetronimo class, or an int)
+	Tetromino held_piece = NULL;    //held piece (use either a tetronimo class, or an int)
 	shape_queue = Queue();			//Queue for upcoming pieces (either use Piece class or ints). Size of 6.
 	swap_hold = false;              //keep track of whether a piece was swapped with the held
 	pieceInPlay = false;            //track whether a tetronimo piece is currently in play
-	int gameMode = 0;				//current play mode: 0 is menu, 1 is basic, 2 is item, 3 is 2-player basic, 4 is 2-player item
+	gameMode = 0;					//current play mode: 0 is menu, 1 is basic, 2 is item, 3 is 2-player basic, 4 is 2-player item
 }
 
 //NOTE: srand should only be called once; can be problematic if 2 player is implemented. call srand in main and generate within the board
@@ -55,7 +55,7 @@ void Board::dropPiece(){
         //check if it can be moved down
         //move it down
     }
-
+	//set the piece
 }
 
 bool Board::moveLeft(){
@@ -69,6 +69,8 @@ bool Board::moveLeft(){
     //move the pieces
     for(int i = 0; i < 4; i++){
         tet.setX(i, tet.getX(i) - 1);
+		//change the new position's color
+		//remove the old position's color
     }
 
     return true;
@@ -85,6 +87,8 @@ bool Board::moveRight(){
     //move the pieces
     for(int i = 0; i < 4; i++){
         tet.setX(i, tet.getX(i) + 1);
+		//change the new position's color
+		//reset the old piece
     }
 
     return true;
@@ -120,12 +124,14 @@ void Board::holdPiece(){
         //re-init the piece.
         //swap_hold = true;
     if(swap_hold == false){
-        if(held_piece == NULL){ //no piece being held
+        if(!has_held_piece){ //no piece being held
             held_piece = tet;
             for(int i = 0; i < 4; i++){
                 held_piece.setCoords(i, -1, -1);
             }
             //clear pieces if they weren't already?
+			nextPiece();
+			has_held_piece = true;
         }
 
         else{   //piece being held; need to swap
@@ -153,16 +159,23 @@ void Board::nextPiece(){
 	shape_queue.add(temp);
 }
 
-//TODO: Finish implementing function
+//TODO: Finish implementing function. Not needed?
 bool Board::initPiece(){
     //check that the piece's spaces are full. return false if they're not, ending the game.
-    for(int i = 0; i < 4; i++){
-
-    }
-
-    //otherwise set the spaces to the piece's color and mark them as occupied.
+	//scratch that. the pulse function should handle the game being over. this should display the tetromino over the occupied piece.
 
 	return true; //temp
+}
+
+void Board::setPiece() {
+	//change coordinates of the grid and color
+	for (int i = 0; i < 4; i++) {
+		Piece& temp = grid[tet.getX(i)][tet.getY(i)];
+		temp.setColor(tet.getColor());
+	}
+
+	swap_hold = false;
+	nextPiece();
 }
 
 //DEBUG FUNCTION
@@ -173,4 +186,9 @@ Queue Board::getQueue() {
 //DEBUG FUNCTION
 Tetromino Board::getCurrentPiece() {
 	return tet;
+}
+
+//DEBUG FUNCTION
+Tetromino Board::getHeldPiece() {
+	return held_piece;
 }

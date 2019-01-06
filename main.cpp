@@ -118,6 +118,25 @@ void boardTest() {
 	cout << "\nNew current piece is: \n" << b1.getCurrentPiece();
 	cout << "\nNew next piece in queue is: \n" << b1.getQueue().getFront();
 
-	
-	
+	cout << "\nHeld piece is: " << b1.getHeldPiece();
+	cout << "\nUsing hold function.";
+	b1.holdPiece();
+
+	cout << "\nNew current piece is: \n" << b1.getCurrentPiece();
+	cout << "\nNew held piece is: " << b1.getHeldPiece();
+	cout << "\nNew next piece in queue is: \n" << b1.getQueue().getFront();
+
+	cout << "\nSwapping held again.";
+	b1.holdPiece();
+
+	cout << "\nNew current piece is: \n" << b1.getCurrentPiece();
+	cout << "\nNew held piece is: " << b1.getHeldPiece();
+	cout << "\nNew next piece in queue is: \n" << b1.getQueue().getFront();
+
+	cout << "\nAttempting to swap again (should not change anything)";
+	b1.holdPiece();
+
+	cout << "\nNew current piece is: \n" << b1.getCurrentPiece();
+	cout << "\nNew held piece is: " << b1.getHeldPiece();
+	cout << "\nNew next piece in queue is: \n" << b1.getQueue().getFront();
 }

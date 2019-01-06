@@ -25,10 +25,12 @@ public:
 	void holdPiece();				//put current piece in the hold box, swap with existing held piece (if any)
 
 	void nextPiece();               //get piece from queue and set it to current piece; refill queue.
+	void pulse();					//progresses the game. moves the piece down, handles game overs.
 
 	//debug functions
 	Queue getQueue();
 	Tetromino getCurrentPiece();
+	Tetromino getHeldPiece();
 
 
 
@@ -48,12 +50,14 @@ private:
     Queue shape_queue;				//Queue for upcoming pieces (either use Piece class or ints). Size of 6.
     bool swap_hold;                 //keep track of whether a piece was swapped with the held
     bool pieceInPlay;               //track whether a tetronimo piece is currently in play
+	bool has_held_piece = false;	
 	int gameMode;					//current play mode: 0 is menu, 1 is basic, 2 is item, 3 is 2-player basic, 4 is 2-player item
     //limit the number of rotations?
 
     //private functions    
     int clearLines();               //check for full rows
-    bool initPiece();               //give the piece its default position and color, if possible.
+    bool initPiece();               //give the piece its default position and color, if possible. Not needed?
+	void setPiece();				//lock a tetromino into place when the pulse cannot move it downwards. reset swap_hold
 
     //Graphics
     const void drawBoard();
