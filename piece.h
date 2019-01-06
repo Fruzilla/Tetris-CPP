@@ -10,9 +10,22 @@ using namespace sf;
 class Piece{
 	friend class Board;			//Allow board to access and manipulate the piece
 public:
+	//constructors
     Piece();						//default. white, no item, not set
 	Piece(Color color);				//pass a color
     Piece(Color color, int i_id);	//pass color, item id
+
+	//functions
+	void setPiece(Color color, int i_id);
+	void setColorSolid(Color color);		//sets color, sets is_set to true
+	void setColor(Color color);				//sets only the color
+	void setItem(int i_id);					//sets only the item
+	void setItemSolid(int i_id);			//sets item, sets is_set to true
+	void setIsSet(bool set);
+
+	Color getColor();
+	int getItem();
+	bool getIsSet();
 
 private:
     //  private variables
