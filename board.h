@@ -12,6 +12,23 @@ public:
     //public variables
 
     //public functions
+	Board();
+
+	void startGame();               //initialize the queue pieces, score, level
+	bool rotateRight();				//rotate the current piece right
+	bool rotateLeft();				//rotate the current piece left
+	void dropPiece();				//push the piece to the bottom
+	bool moveLeft();                //on key event, move piece left
+	bool moveRight();				//move piece right
+	bool moveDown();				//move piece downward
+	bool moveUp();					//for fun: move piece upward
+	void holdPiece();				//put current piece in the hold box, swap with existing held piece (if any)
+
+	void nextPiece();               //get piece from queue and set it to current piece; refill queue.
+
+	//debug functions
+	Queue getQueue();
+	Tetromino getCurrentPiece();
 
 
 
@@ -31,19 +48,11 @@ private:
     Queue shape_queue;				//Queue for upcoming pieces (either use Piece class or ints). Size of 6.
     bool swap_hold;                 //keep track of whether a piece was swapped with the held
     bool pieceInPlay;               //track whether a tetronimo piece is currently in play
-	int gameMode;					//current play mode	
+	int gameMode;					//current play mode: 0 is menu, 1 is basic, 2 is item, 3 is 2-player basic, 4 is 2-player item
     //limit the number of rotations?
 
-    //private functions
-    void startGame();               //initialize the pieces, score, level
-    bool rotateRight();
-    bool rotateLeft();
-    void dropPiece();
-    bool moveLeft();                //on key event
-    bool moveRight();
+    //private functions    
     int clearLines();               //check for full rows
-    void holdPiece();
-    void nextPiece();               //get piece from queue and set it to current piece; refill queue.
     bool initPiece();               //give the piece its default position and color, if possible.
 
     //Graphics

@@ -1,12 +1,38 @@
 #include "board.h"
 #include "tetromino.h"
+#include "piece.h"
+#include <stdlib.h>
 
-//TODO: Finish implementing functions
-
-void Board::startGame(){
-
+Board::Board() {
+	Tetromino tet = NULL;
+	score = 0;                      //points for putting down a piece and for clearing lines
+	lines_cleared = 0;              //track lines cleared, use to determine speed?
+	speed = 0;						//the pace of the game "pulses"
+	level = 0;                      //or use size_t (can't be negative)
+	item_id = 0;                    //if there's an item, store its id. 0 if none (or negative), then different ints for each item
+	Tetromino held_piece;           //held piece (use either a tetronimo class, or an int)
+	shape_queue = Queue();			//Queue for upcoming pieces (either use Piece class or ints). Size of 6.
+	swap_hold = false;              //keep track of whether a piece was swapped with the held
+	pieceInPlay = false;            //track whether a tetronimo piece is currently in play
+	int gameMode = 0;				//current play mode: 0 is menu, 1 is basic, 2 is item, 3 is 2-player basic, 4 is 2-player item
 }
 
+//NOTE: srand should only be called once; can be problematic if 2 player is implemented. call srand in main and generate within the board
+void Board::startGame(){
+	//fill the queue
+	for (int i = 0; i < 6; i++) {
+		int r = rand() % 7; //0 to 6
+		Tetromino temp = Tetromino(r);
+		shape_queue.add(temp);
+	}
+
+	//set starting piece
+	tet = Tetromino(rand() % 7);
+
+	//depending on game mode and options, may need to change other variables like level and speed
+}
+
+//TODO: Finish implementing function
 bool Board::rotateRight(){
     //check if it can be rotated
     //rotate it
@@ -14,6 +40,7 @@ bool Board::rotateRight(){
 	return true; //temp
 }
 
+//TODO: Finish implementing function
 bool Board::rotateLeft(){
     //check if it can be rotated
     //rotate it
@@ -21,6 +48,7 @@ bool Board::rotateLeft(){
 	return true; //temp
 }
 
+//TODO: Finish implementing function
 void Board::dropPiece(){
     //keep dropping the piece until its pieces can't go any further.
     while(true){
@@ -31,9 +59,9 @@ void Board::dropPiece(){
 }
 
 bool Board::moveLeft(){
-    //check if piece can be moved
+    //check if piece can be moved. return false if out of bounds or piece is occupied
     for(int i = 0; i < 4; i++){
-        if(tet.getX(i) - 1 < 0){
+        if(tet.getX(i) - 1 < 0 || grid[tet.getX(i)-1][tet.getY(i)].is_set){
             return false;
         }
     }
@@ -47,9 +75,9 @@ bool Board::moveLeft(){
 }
 
 bool Board::moveRight(){
-    //check if piece can be moved
+    //check if piece can be moved. return false if out of bounds or piece is occupied
     for(int i = 0; i < 4; i++){
-        if(tet.getX(i) + 1 > (GRID_WIDTH-1) ){
+        if(tet.getX(i) + 1 > (GRID_WIDTH-1) || grid[tet.getX(i)+1][tet.getY(i)].is_set ){
             return false;
         }
     }
@@ -62,7 +90,7 @@ bool Board::moveRight(){
     return true;
 }
 
-
+//TODO: Finish implementing function
 int Board::clearLines(){
     int numRowsCleared = 0;
     int startingRow = -1;
@@ -115,10 +143,17 @@ void Board::holdPiece(){
     swap_hold = true;
 }
 
+//get piece from queue and set it to current piece; refill queue.
 void Board::nextPiece(){
+	tet = shape_queue.pop();
+
     //randomly generate the type of the next piece and add to queue.
+	int r = rand() % 7; //0 to 6
+	Tetromino temp = Tetromino(r);
+	shape_queue.add(temp);
 }
 
+//TODO: Finish implementing function
 bool Board::initPiece(){
     //check that the piece's spaces are full. return false if they're not, ending the game.
     for(int i = 0; i < 4; i++){
@@ -128,4 +163,14 @@ bool Board::initPiece(){
     //otherwise set the spaces to the piece's color and mark them as occupied.
 
 	return true; //temp
+}
+
+//DEBUG FUNCTION
+Queue Board::getQueue() {
+	return shape_queue;
+}
+
+//DEBUG FUNCTION
+Tetromino Board::getCurrentPiece() {
+	return tet;
 }
