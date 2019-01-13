@@ -32,59 +32,106 @@ void Board::startGame(){
 	//depending on game mode and options, may need to change other variables like level and speed
 }
 
-//TODO: implement wall-kicks
 bool Board::rotateRight(){
-    //check if it can be rotated
+	//gather coordinates
+	int coords[4][2];
 	for (int i = 0; i < 4; i++) {
-		int new_x = rotateXRight(i);
-		int new_y = rotateYRight(i);
-		//if the new position is occupied or oob
-			//return false
-		//else do nothing
-		if (new_x > 9 || new_x < 0 || new_y < 0 || new_y > 23 || grid[new_x][new_y].getIsSet()) {
+		coords[i][0] = rotateXRight(i);
+		coords[i][1] = rotateYRight(i);
+	}
+
+	//check for out of bounds coordinates and attempt to wallkick (move coordinates back in range)
+	for (int i = 0; i < 4; i++) {
+		if (coords[i][0] < 0) {
+			int t = coords[i][0];
+			for (int j = 0; j < 4; j++) {
+				coords[j][0] += (t * -1);
+			}
+		}
+		else if (coords[i][0] > 9) {
+			int t = coords[i][0];
+			for (int j = 0; j < 4; j++) {
+				coords[j][0] -= (t - 9);
+			}
+		}
+		if (coords[i][1] < 0) {
+			int t = coords[i][1];
+			for (int j = 0; j < 4; j++) {
+				coords[j][1] += (t * -1);
+			}
+		}
+		else if (coords[i][1] > 23) {
+			int t = coords[i][1];
+			for (int j = 0; j < 4; j++) {
+				coords[j][0] -= (t - 23);
+			}
+		}
+	}
+
+	//check if the new coordinates are occupied. if they are, return false.
+	for (int i = 0; i < 4; i++) {
+		if (grid[coords[i][0]][coords[i][1]].getIsSet()) {
 			return false;
 		}
 	}
-    //rotate it
+
+    //set the coordinates
 	for (int i = 0; i < 4; i++) {
-		int new_x = rotateXRight(i);
-		int new_y = rotateYRight(i);
-		tet.setCoords(i, new_x, new_y);
+		tet.setCoords(i, coords[i][0], coords[i][1]);
 	}
 
-	return true; //temp
+	return true;
 }
 
-//TODO: implement wall-kicks
 bool Board::rotateLeft() {
-	//check if it can be rotated
+	//gather coordinates
+	int coords[4][2];
 	for (int i = 0; i < 4; i++) {
-		int new_x = rotateXLeft(i);
-		int new_y = rotateYLeft(i);
+		coords[i][0] = rotateXLeft(i);
+		coords[i][1] = rotateYLeft(i);
+	}
 
-		//if the new position is oob
-			//check to see if it can wallkick (aka that if moving the entire piece up/down/left/right one, it won't collide with anything
-			//-x, +x, -y, +y
-			
+	//check for out of bounds coordinates and attempt to wallkick (move coordinates back in range)
+	for (int i = 0; i < 4; i++) {
+		if (coords[i][0] < 0) {
+			int t = coords[i][0];
+			for (int j = 0; j < 4; j++) {
+				coords[j][0] += (t * -1);
+			}
+		}
+		else if (coords[i][0] > 9) {
+			int t = coords[i][0];
+			for (int j = 0; j < 4; j++) {
+				coords[j][0] -= (t - 9);
+			}
+		}
+		if (coords[i][1] < 0) {
+			int t = coords[i][1];
+			for (int j = 0; j < 4; j++) {
+				coords[j][1] += (t * -1);
+			}
+		}
+		else if (coords[i][1] > 23) {
+			int t = coords[i][1];
+			for (int j = 0; j < 4; j++) {
+				coords[j][0] -= (t - 23);
+			}
+		}
+	}
 
-
-
-		//if the new position is occupied or oob
-		//return false
-		//else do nothing
-		if (new_x > 9 || new_x < 0 || new_y < 0 || new_y > 23 || grid[new_x][new_y].getIsSet()) {
-			cout << "\nRotation Failed\n"; //DEBUG
+	//check if the new coordinates are occupied. if they are, return false.
+	for (int i = 0; i < 4; i++) {
+		if (grid[coords[i][0]][coords[i][1]].getIsSet()) {
 			return false;
 		}
 	}
-	//rotate it
+
+	//set the coordinates
 	for (int i = 0; i < 4; i++) {
-		int new_x = rotateXLeft(i);
-		int new_y = rotateYLeft(i);
-		tet.setCoords(i, new_x, new_y);
+		tet.setCoords(i, coords[i][0], coords[i][1]);
 	}
 
-	return true; //temp
+	return true;
 }
 
 //x' = (y + px - py) (pivot point is third piece)

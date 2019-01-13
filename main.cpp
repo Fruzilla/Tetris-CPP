@@ -221,7 +221,15 @@ void rotationTest() {
 	b1.getCurrentPiece().setCoords(2, 0, 2);
 	b1.getCurrentPiece().setCoords(3, 0, 3);
 
-	b1.rotateLeft() ? cout << "Rotated...\n" : cout << "Could not rotate! (success)\n";
+	for (int i = 0; i < 4; i++) {
+		int ox = b1.getCurrentPiece().getX(i);
+		int oy = b1.getCurrentPiece().getY(i);
+		int nx = b1.testRotateXLeft(i);
+		int ny = b1.testRotateYLeft(i);
+		cout << "(" << ox << "," << oy << ") -> (" << nx << "," << ny << ")" << endl;
+	}
+
+	b1.rotateLeft() ? cout << "Rotated (wallkick!)" << b1.getCurrentPiece() : cout << "Could not rotate! (did not wallkick)\n" << b1.getCurrentPiece();
 
 
 
