@@ -29,14 +29,14 @@ public:
 
 	//debug functions
 	Queue getQueue();
-	Tetromino getCurrentPiece();
-	Tetromino getHeldPiece();
-	void setPiece(int i);
-	int testRotateXRight(int i);
-	int testRotateYRight(int i);
+	Tetromino &getCurrentPiece();	//returns current in-play piece
+	Tetromino getHeldPiece();		//returns piece being held
+	void setPiece(int i);			//sets current piece to a new piece of type i
+	int testRotateXRight(int i);	//returns x value calculated by rotate right
+	int testRotateYRight(int i);	
 	int testRotateXLeft(int i);
 	int testRotateYLeft(int i);
-
+	void setGridPiece(int x, int y);//sets a particular piece on the grid
 
 
 private:

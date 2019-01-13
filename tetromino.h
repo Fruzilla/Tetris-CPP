@@ -82,7 +82,7 @@ private:
 	bool has_item;          //whether or not the shape has an item
 	int item_type;			//type of item
 	int item_piece;         //which piece contains the item
-	int rotation;           //rotation. probably redundant.
+	int rotation;           //unused, but keeping in case it could be useful
 
 	//functions
 	//these might all be handled by the board. Create_piece needs access to board pieces. Board should take shape color and colorize pieces.

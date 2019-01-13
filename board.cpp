@@ -26,14 +26,12 @@ void Board::startGame(){
 		Tetromino temp = Tetromino(r);
 		shape_queue.add(temp);
 	}
-
 	//set starting piece
 	tet = Tetromino(rand() % 7);
 
 	//depending on game mode and options, may need to change other variables like level and speed
 }
 
-//TODO: Finish implementing function
 //TODO: implement wall-kicks
 bool Board::rotateRight(){
     //check if it can be rotated
@@ -57,13 +55,20 @@ bool Board::rotateRight(){
 	return true; //temp
 }
 
-//TODO: Finish implementing function
 //TODO: implement wall-kicks
 bool Board::rotateLeft() {
 	//check if it can be rotated
 	for (int i = 0; i < 4; i++) {
 		int new_x = rotateXLeft(i);
 		int new_y = rotateYLeft(i);
+
+		//if the new position is oob
+			//check to see if it can wallkick (aka that if moving the entire piece up/down/left/right one, it won't collide with anything
+			//-x, +x, -y, +y
+			
+
+
+
 		//if the new position is occupied or oob
 		//return false
 		//else do nothing
@@ -84,34 +89,22 @@ bool Board::rotateLeft() {
 
 //x' = (y + px - py) (pivot point is third piece)
 int Board::rotateXLeft(int i) {
-	//return int(tet.getX(i) * cos(atan(1)*4/2) - tet.getY(i) * sin(atan(1) * 4 /2));
-
 	return (tet.getY(i) + tet.getX(2) - tet.getY(2));
-
-
 }
 
 //y' = (px + py - x)
 int Board::rotateYLeft(int i) {
-	//return int(tet.getX(i) * sin(atan(1) * 4 /2) + tet.getY(i) * cos(atan(1) * 4 /2));
 	return (tet.getX(2) + tet.getY(2) - tet.getX(i));
-
 }
 
 //x' = (px + py - y)
-//x' = x * cos(PI/2) - y * sin(PI/2) and y' = x * sin(PI / 2) + y * cos(PI / 2) .
-//NVM THIS IS FOR LEFT ROTATION. try reversing cos and sin for each?
 int Board::rotateXRight(int i) {
-	//return int(tet.getX(i) * cos((atan(1) * 4) / 2) + tet.getY(i) * sin(atan(1) * 4 / 2));
 	return (tet.getX(2) + tet.getY(2) - tet.getY(i));
-
 }
 
 //y' = (x + py + px)
 int Board::rotateYRight(int i) {
-	//return int(tet.getX(i) * sin((atan(1) * 4) / 2) - tet.getY(i) * cos(atan(1) * 4 / 2));
 	return (tet.getX(i) + tet.getY(2) - tet.getX(2));
-
 }
 
 //TODO: Finish implementing function
@@ -250,7 +243,7 @@ Queue Board::getQueue() {
 }
 
 //DEBUG FUNCTION
-Tetromino Board::getCurrentPiece() {
+Tetromino& Board::getCurrentPiece() {
 	return tet;
 }
 
@@ -282,4 +275,9 @@ int Board::testRotateXRight(int i) {
 //DEBUG FUNCTION
 int Board::testRotateYRight(int i) {
 	return rotateYRight(i);
+}
+
+//DEBUG FUNCTION
+void Board::setGridPiece(int x, int y) {
+	grid[x][y].setColorSolid(Color::Magenta);
 }

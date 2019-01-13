@@ -94,6 +94,7 @@ void tetTest() {
 
 	cout << t3;
 
+	Tetromino t88 = Tetromino(888);
 }
 
 void boardTest() {
@@ -196,10 +197,33 @@ void rotationTest() {
 			b1.rotateRight();
 			cout << b1.getCurrentPiece();
 		}
-		_getch();
+		//_getch();
 	}
 
-	//check rotating out of bounds (x and y)
 	//check rotating into occupied piece
-	//check rotating line at the top into the dead zone
+	cout << "\nAttempting to rotate into an occupied space. (5, 13) should be occupied.\n";
+	b1.getCurrentPiece().setCoords(0, 5, 15);
+	b1.getCurrentPiece().setCoords(1, 4, 14);
+	b1.getCurrentPiece().setCoords(2, 5, 14);
+	b1.getCurrentPiece().setCoords(3, 6, 14);
+
+	b1.setGridPiece(5, 13);
+	for (int i = 0; i < 4; i++) {
+		b1.rotateLeft() ? cout << "Rotated...\n" : cout << "Could not rotate! (success)\n";
+		cout << b1.getCurrentPiece();
+
+	}
+
+	//check rotating out of bounds (x and y) //change this to wallkicking
+	cout << "\nAttempting to rotate out of bounds. Starting by rotating to a negative X.\n";
+	b1.getCurrentPiece().setCoords(0, 1, 2);
+	b1.getCurrentPiece().setCoords(1, 0, 1);
+	b1.getCurrentPiece().setCoords(2, 0, 2);
+	b1.getCurrentPiece().setCoords(3, 0, 3);
+
+	b1.rotateLeft() ? cout << "Rotated...\n" : cout << "Could not rotate! (success)\n";
+
+
+
+	//check wallkick behavior
 }
