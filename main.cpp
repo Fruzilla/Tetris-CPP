@@ -154,11 +154,11 @@ void rotationTest() {
 	b1.setPiece(2);
 	for (int i = 0; i < 4; i++) {
 		cout << b1.getCurrentPiece();
-		b1.rotateRight();
+		b1.rotateLeft();
 	}
 
 	b1.setPiece(2);
-	//right rotation
+	//left rotation
 	//(4,2) - > (5,3)
 	//(3,3) - > (4,2)
 	//(4,3) - > (4,3)
@@ -166,17 +166,39 @@ void rotationTest() {
 	for (int i = 0; i < 4; i++) {
 		int ox = b1.getCurrentPiece().getX(i);
 		int oy = b1.getCurrentPiece().getY(i);
-		int nx = b1.testRotateXRight(i);
-		int ny = b1.testRotateYRight(i);
+		int nx = b1.testRotateXLeft(i);
+		int ny = b1.testRotateYLeft(i);
 		cout << "(" << ox << "," << oy << ") -> (" << nx << "," << ny << ")" << endl;
 	}
 
-	//left rotation
+	//right rotation
 	//(4,2) - > (3,3)
 	//(3,3) - > (4,4)
 	//(4,3) - > (4,3)
 	//(5,3) - > (4,2)
+	for (int i = 0; i < 4; i++) {
+		int ox = b1.getCurrentPiece().getX(i);
+		int oy = b1.getCurrentPiece().getY(i);
+		int nx = b1.testRotateXRight(i);
+		int ny = b1.testRotateYRight(i);
+		cout << "(" << ox << "," << oy << ") -> (" << nx << "," << ny << ")" << endl;
+	}
 	
+	for (int i = 0; i < 7; i++) {
+		b1.setPiece(i);
+		cout << b1.getCurrentPiece().names[i] << " Left Rotation" << endl << b1.getCurrentPiece() << "***************";
+		for (int j = 0; j < 4; j++) {
+			b1.rotateLeft();
+			cout << b1.getCurrentPiece();
+		}
+		cout << b1.getCurrentPiece().names[i] << " Right Rotation" << endl << b1.getCurrentPiece() << "***************";
+		for (int j = 0; j < 4; j++) {
+			b1.rotateRight();
+			cout << b1.getCurrentPiece();
+		}
+		_getch();
+	}
+
 	//check rotating out of bounds (x and y)
 	//check rotating into occupied piece
 	//check rotating line at the top into the dead zone

@@ -34,6 +34,7 @@ void Board::startGame(){
 }
 
 //TODO: Finish implementing function
+//TODO: implement wall-kicks
 bool Board::rotateRight(){
     //check if it can be rotated
 	for (int i = 0; i < 4; i++) {
@@ -57,6 +58,7 @@ bool Board::rotateRight(){
 }
 
 //TODO: Finish implementing function
+//TODO: implement wall-kicks
 bool Board::rotateLeft() {
 	//check if it can be rotated
 	for (int i = 0; i < 4; i++) {
@@ -80,22 +82,36 @@ bool Board::rotateLeft() {
 	return true; //temp
 }
 
+//x' = (y + px - py) (pivot point is third piece)
 int Board::rotateXLeft(int i) {
-	return int(tet.getX(i) * cos(atan(1)*4/2) - tet.getY(i) * sin(atan(1) * 4 /2));
+	//return int(tet.getX(i) * cos(atan(1)*4/2) - tet.getY(i) * sin(atan(1) * 4 /2));
+
+	return (tet.getY(i) + tet.getX(2) - tet.getY(2));
+
+
 }
 
+//y' = (px + py - x)
 int Board::rotateYLeft(int i) {
-	return int(tet.getX(i) * sin(atan(1) * 4 /2) + tet.getY(i) * cos(atan(1) * 4 /2));
+	//return int(tet.getX(i) * sin(atan(1) * 4 /2) + tet.getY(i) * cos(atan(1) * 4 /2));
+	return (tet.getX(2) + tet.getY(2) - tet.getX(i));
+
 }
 
+//x' = (px + py - y)
 //x' = x * cos(PI/2) - y * sin(PI/2) and y' = x * sin(PI / 2) + y * cos(PI / 2) .
 //NVM THIS IS FOR LEFT ROTATION. try reversing cos and sin for each?
 int Board::rotateXRight(int i) {
-	return int(tet.getX(i) * cos((atan(1) * 4) / 2) + tet.getY(i) * sin(atan(1) * 4 / 2));
+	//return int(tet.getX(i) * cos((atan(1) * 4) / 2) + tet.getY(i) * sin(atan(1) * 4 / 2));
+	return (tet.getX(2) + tet.getY(2) - tet.getY(i));
+
 }
 
+//y' = (x + py + px)
 int Board::rotateYRight(int i) {
-	return int(tet.getX(i) * sin((atan(1) * 4) / 2) - tet.getY(i) * cos(atan(1) * 4 / 2));
+	//return int(tet.getX(i) * sin((atan(1) * 4) / 2) - tet.getY(i) * cos(atan(1) * 4 / 2));
+	return (tet.getX(i) + tet.getY(2) - tet.getX(2));
+
 }
 
 //TODO: Finish implementing function
