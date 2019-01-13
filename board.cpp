@@ -2,6 +2,7 @@
 #include "tetromino.h"
 #include "piece.h"
 #include <stdlib.h>
+#include <math.h>
 
 Board::Board() {
 	Tetromino tet = NULL;
@@ -35,17 +36,66 @@ void Board::startGame(){
 //TODO: Finish implementing function
 bool Board::rotateRight(){
     //check if it can be rotated
+	for (int i = 0; i < 4; i++) {
+		int new_x = rotateXRight(i);
+		int new_y = rotateYRight(i);
+		//if the new position is occupied or oob
+			//return false
+		//else do nothing
+		if (new_x > 9 || new_x < 0 || new_y < 0 || new_y > 23 || grid[new_x][new_y].getIsSet()) {
+			return false;
+		}
+	}
     //rotate it
+	for (int i = 0; i < 4; i++) {
+		int new_x = rotateXRight(i);
+		int new_y = rotateYRight(i);
+		tet.setCoords(i, new_x, new_y);
+	}
 
 	return true; //temp
 }
 
 //TODO: Finish implementing function
-bool Board::rotateLeft(){
-    //check if it can be rotated
-    //rotate it
+bool Board::rotateLeft() {
+	//check if it can be rotated
+	for (int i = 0; i < 4; i++) {
+		int new_x = rotateXLeft(i);
+		int new_y = rotateYLeft(i);
+		//if the new position is occupied or oob
+		//return false
+		//else do nothing
+		if (new_x > 9 || new_x < 0 || new_y < 0 || new_y > 23 || grid[new_x][new_y].getIsSet()) {
+			cout << "\nRotation Failed\n"; //DEBUG
+			return false;
+		}
+	}
+	//rotate it
+	for (int i = 0; i < 4; i++) {
+		int new_x = rotateXLeft(i);
+		int new_y = rotateYLeft(i);
+		tet.setCoords(i, new_x, new_y);
+	}
 
 	return true; //temp
+}
+
+int Board::rotateXLeft(int i) {
+	return int(tet.getX(i) * cos(atan(1)*4/2) - tet.getY(i) * sin(atan(1) * 4 /2));
+}
+
+int Board::rotateYLeft(int i) {
+	return int(tet.getX(i) * sin(atan(1) * 4 /2) + tet.getY(i) * cos(atan(1) * 4 /2));
+}
+
+//x' = x * cos(PI/2) - y * sin(PI/2) and y' = x * sin(PI / 2) + y * cos(PI / 2) .
+//NVM THIS IS FOR LEFT ROTATION. try reversing cos and sin for each?
+int Board::rotateXRight(int i) {
+	return int(tet.getX(i) * cos((atan(1) * 4) / 2) + tet.getY(i) * sin(atan(1) * 4 / 2));
+}
+
+int Board::rotateYRight(int i) {
+	return int(tet.getX(i) * sin((atan(1) * 4) / 2) - tet.getY(i) * cos(atan(1) * 4 / 2));
 }
 
 //TODO: Finish implementing function
@@ -191,4 +241,29 @@ Tetromino Board::getCurrentPiece() {
 //DEBUG FUNCTION
 Tetromino Board::getHeldPiece() {
 	return held_piece;
+}
+
+//DEBUG FUNCTION
+void Board::setPiece(int i) {
+	tet = Tetromino(i);
+}
+
+//DEBUG FUNCTION
+int Board::testRotateXLeft(int i) {
+	return rotateXLeft(i);
+}
+
+//DEBUG FUNCTION
+int Board::testRotateYLeft(int i) {
+	return rotateYLeft(i);
+}
+
+//DEBUG FUNCTION
+int Board::testRotateXRight(int i) {
+	return rotateXRight(i);
+}
+
+//DEBUG FUNCTION
+int Board::testRotateYRight(int i) {
+	return rotateYRight(i);
 }

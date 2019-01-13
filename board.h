@@ -31,13 +31,18 @@ public:
 	Queue getQueue();
 	Tetromino getCurrentPiece();
 	Tetromino getHeldPiece();
+	void setPiece(int i);
+	int testRotateXRight(int i);
+	int testRotateYRight(int i);
+	int testRotateXLeft(int i);
+	int testRotateYLeft(int i);
 
 
 
 private:
     //private variables
-    static const int GRID_WIDTH = 10; //might adjust grid size to create an extra "dead zone" at the top
-    static const int GRID_HEIGHT = 24;
+    static const int GRID_WIDTH = 10;	//10x22 grid with two "dead zone" rows at the top. y=0 and y=1 are dead zone.
+    static const int GRID_HEIGHT = 24;	
 
     Piece grid[GRID_WIDTH][GRID_HEIGHT];             //the grid
     Tetromino tet;					//the current piece (pointer to the piece that's head of the queue/list)
@@ -58,6 +63,10 @@ private:
     int clearLines();               //check for full rows
     bool initPiece();               //give the piece its default position and color, if possible. Not needed?
 	void setPiece();				//lock a tetromino into place when the pulse cannot move it downwards. reset swap_hold
+	int rotateXRight(int i);		//calculate 
+	int rotateYRight(int i);
+	int rotateXLeft(int i);
+	int rotateYLeft(int i);
 
     //Graphics
     const void drawBoard();

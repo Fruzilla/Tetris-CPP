@@ -14,6 +14,7 @@ using namespace sf;
 void debugClasses();	//starts a simple text ui to test classes and functions
 void tetTest();			//test Tetromino class and functions
 void boardTest();		//test Board class and functions
+void rotationTest();	//test tetromino rotation and board position
 
 int main()
 {
@@ -21,19 +22,24 @@ int main()
 }
 
 void debugClasses() {
-	cout << "Welcome to the Tetris class tester and debugger.\n\n\nSelect an option:\n\n\t1. Tetromino testing\n\t2. Board testing\n\tq. Quit";
+	cout << "Welcome to the Tetris class tester and debugger.\n\n\nSelect an option:\n\n\t1. Tetromino testing\n\t2. Board testing\n\t3. Rotation testing\n\tq. Quit";
 	while (true){
 		char input = _getch();
 		switch (input) {
 			case '1':
 				cout << "\n\nStarting the Tetromino test.\n\n";
 				tetTest();
-				cout << "\nWelcome to the Tetris class tester and debugger.\n\n\nSelect an option:\n\n\t1. Tetromino testing\n\t2. Board testing\n\tq. Quit";
+				cout << "\nWelcome to the Tetris class tester and debugger.\n\n\nSelect an option:\n\n\t1. Tetromino testing\n\t2. Board testing\n\t3. Rotation testing\n\tq. Quit";
 				break;
 			case '2': 
 				cout << "\n\nStarting the Board test.\n\n";
 				boardTest();
-				cout << "\nWelcome to the Tetris class tester and debugger.\n\n\nSelect an option:\n\n\t1. Tetromino testing\n\t2. Board testing\n\tq. Quit";
+				cout << "\nWelcome to the Tetris class tester and debugger.\n\n\nSelect an option:\n\n\t1. Tetromino testing\n\t2. Board testing\n\t3. Rotation testing\n\tq. Quit";
+				break;
+			case '3':
+				cout << "\n\nStarting the rotation test.\n\n";
+				rotationTest();
+				cout << "\nWelcome to the Tetris class tester and debugger.\n\n\nSelect an option:\n\n\t1. Tetromino testing\n\t2. Board testing\n\t3. Rotation testing\n\tq. Quit";
 				break;
 			case 'q':
 				return;
@@ -139,4 +145,39 @@ void boardTest() {
 	cout << "\nNew current piece is: \n" << b1.getCurrentPiece();
 	cout << "\nNew held piece is: " << b1.getHeldPiece();
 	cout << "\nNew next piece in queue is: \n" << b1.getQueue().getFront();
+}
+
+void rotationTest() {
+	Board b1 = Board();
+
+	//check basic rotation (rotate a piece, check coords) for all 7 piece types.
+	b1.setPiece(2);
+	for (int i = 0; i < 4; i++) {
+		cout << b1.getCurrentPiece();
+		b1.rotateRight();
+	}
+
+	b1.setPiece(2);
+	//right rotation
+	//(4,2) - > (5,3)
+	//(3,3) - > (4,2)
+	//(4,3) - > (4,3)
+	//(5,3) - > (4,4)
+	for (int i = 0; i < 4; i++) {
+		int ox = b1.getCurrentPiece().getX(i);
+		int oy = b1.getCurrentPiece().getY(i);
+		int nx = b1.testRotateXRight(i);
+		int ny = b1.testRotateYRight(i);
+		cout << "(" << ox << "," << oy << ") -> (" << nx << "," << ny << ")" << endl;
+	}
+
+	//left rotation
+	//(4,2) - > (3,3)
+	//(3,3) - > (4,4)
+	//(4,3) - > (4,3)
+	//(5,3) - > (4,2)
+	
+	//check rotating out of bounds (x and y)
+	//check rotating into occupied piece
+	//check rotating line at the top into the dead zone
 }
