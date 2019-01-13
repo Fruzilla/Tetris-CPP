@@ -13,13 +13,13 @@ class Tetromino {
 public:
 	//move to board? actually make it a static global. or put it in the board and pass the row into the tetronimo
 	const int starting_coords[7][4][2] = { //starting coordinates for each piece type. for consistency, 3rd position is the pivot piece.
-		{{5, 1}, {5, 3}, {5, 2}, {5, 4}},
-		{{4, 1}, {4, 2}, {5, 1}, {5, 2}},
-		{{5, 1}, {4, 2}, {5, 2}, {6, 2}},
-		{{4, 3}, {5, 3}, {4, 2}, {4, 1}},
-		{{4, 3}, {5, 3}, {5, 2}, {5, 1}},
-		{{5, 1}, {5, 2}, {4, 2}, {4, 3}},
-		{{4, 1}, {4, 2}, {5, 2}, {5, 3}},
+		{{4, 2}, {5, 2}, {6, 2}, {7, 2}},	//line
+		{{4, 2}, {4, 3}, {5, 2}, {5, 3}},	//square
+		{{4, 2}, {3, 3}, {4, 3}, {5, 3}},	//T
+		{{4, 3}, {5, 3}, {6, 3}, {6, 2}},	//L
+		{{4, 3}, {5, 3}, {6, 3}, {4, 2}},	//Reverse L
+		{{4, 2}, {5, 2}, {5, 3}, {6, 3}},	//S
+		{{3, 2}, {4, 2}, {4, 3}, {5, 3}},	//Z
 	};
 
 	//move to board?
