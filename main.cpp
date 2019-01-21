@@ -214,12 +214,12 @@ void rotationTest() {
 
 	}
 
-	//check rotating out of bounds (x and y) //change this to wallkicking
+	//check rotating out of bounds (x and y)
 	cout << "\nAttempting to rotate out of bounds. Starting by rotating to a negative X.\n";
-	b1.getCurrentPiece().setCoords(0, 1, 2);
-	b1.getCurrentPiece().setCoords(1, 0, 1);
-	b1.getCurrentPiece().setCoords(2, 0, 2);
-	b1.getCurrentPiece().setCoords(3, 0, 3);
+	b1.getCurrentPiece().setCoords(0, 1, 1);
+	b1.getCurrentPiece().setCoords(1, 0, 0);
+	b1.getCurrentPiece().setCoords(2, 1, 0);
+	b1.getCurrentPiece().setCoords(3, 2, 0);
 
 	for (int i = 0; i < 4; i++) {
 		int ox = b1.getCurrentPiece().getX(i);
@@ -229,9 +229,23 @@ void rotationTest() {
 		cout << "(" << ox << "," << oy << ") -> (" << nx << "," << ny << ")" << endl;
 	}
 
-	b1.rotateLeft() ? cout << "Rotated (wallkick!)" << b1.getCurrentPiece() : cout << "Could not rotate! (did not wallkick)\n" << b1.getCurrentPiece();
+	b1.rotateLeft() ? cout << "\nRotated (wallkick!)" << b1.getCurrentPiece() : cout << "\nCould not rotate! (did not wallkick)\n" << b1.getCurrentPiece();
 
+	//check rotating out of bounds (x and y) //change this to wallkicking
+	cout << "\nAttempting to rotate out of bounds. Starting by attempting to rotate to an out of bounds Y.\n";
+	b1.getCurrentPiece().setCoords(0, 4, 23);
+	b1.getCurrentPiece().setCoords(1, 4, 22);
+	b1.getCurrentPiece().setCoords(2, 5, 22);
+	b1.getCurrentPiece().setCoords(3, 6, 22);
 
+	for (int i = 0; i < 4; i++) {
+		int ox = b1.getCurrentPiece().getX(i);
+		int oy = b1.getCurrentPiece().getY(i);
+		int nx = b1.testRotateXRight(i);
+		int ny = b1.testRotateYRight(i);
+		cout << "(" << ox << "," << oy << ") -> (" << nx << "," << ny << ")" << endl;
+	}
 
-	//check wallkick behavior
+	b1.rotateRight() ? cout << "\nRotated!" << b1.getCurrentPiece() : cout << "\nCould not rotate!\n" << b1.getCurrentPiece();
+
 }
