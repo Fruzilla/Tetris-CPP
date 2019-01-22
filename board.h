@@ -10,6 +10,7 @@
 class Board{
 public:
     //public variables
+	const int ROTATION_LIMIT = 10;
 
     //public functions
 	Board();
@@ -31,12 +32,13 @@ public:
 	Queue getQueue();
 	Tetromino &getCurrentPiece();	//returns current in-play piece
 	Tetromino getHeldPiece();		//returns piece being held
-	void setPiece(int i);			//sets current piece to a new piece of type i
+	void setPieceType(int i);			//sets current piece to a new piece of type i
 	int testRotateXRight(int i);	//returns x value calculated by rotate right
 	int testRotateYRight(int i);	
 	int testRotateXLeft(int i);
 	int testRotateYLeft(int i);
 	void setGridPiece(int x, int y);//sets a particular piece on the grid
+	Piece getGridPiece(int x, int y);
 
 
 private:
@@ -46,6 +48,7 @@ private:
 
     Piece grid[GRID_WIDTH][GRID_HEIGHT];             //the grid
     Tetromino tet;					//the current piece (pointer to the piece that's head of the queue/list)
+	Tetromino ghost;				//the ghost piece, showing where the piece will end up if it's not moved
     int score;                      //points for putting down a piece and for clearing lines
     int lines_cleared;              //track lines cleared, use to determine speed?
 	int speed;						//the pace of the game "pulses"
@@ -55,6 +58,7 @@ private:
     Queue shape_queue;				//Queue for upcoming pieces (either use Piece class or ints). Size of 6.
     bool swap_hold;                 //keep track of whether a piece was swapped with the held
     bool pieceInPlay;               //track whether a tetronimo piece is currently in play
+	int timesRotated;
 	bool has_held_piece = false;	
 	int gameMode;					//current play mode: 0 is menu, 1 is basic, 2 is item, 3 is 2-player basic, 4 is 2-player item
     //limit the number of rotations?
@@ -63,11 +67,12 @@ private:
     int clearLines();               //check for full rows
     bool initPiece();               //give the piece its default position and color, if possible. Not needed?
 	void setPiece();				//lock a tetromino into place when the pulse cannot move it downwards. reset swap_hold
+	void ghostPiece();				//displays a preview of where the piece will land (call when piece is initiated, when it moves l/r, rotates)
 	int rotateXRight(int i);		//calculate 
 	int rotateYRight(int i);
 	int rotateXLeft(int i);
 	int rotateYLeft(int i);
-
+	
     //Graphics
     const void drawBoard();
 };

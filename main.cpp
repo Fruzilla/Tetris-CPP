@@ -152,13 +152,13 @@ void rotationTest() {
 	Board b1 = Board();
 
 	//check basic rotation (rotate a piece, check coords) for all 7 piece types.
-	b1.setPiece(2);
+	b1.setPieceType(2);
 	for (int i = 0; i < 4; i++) {
 		cout << b1.getCurrentPiece();
 		b1.rotateLeft();
 	}
 
-	b1.setPiece(2);
+	b1.setPieceType(2);
 	//left rotation
 	//(4,2) - > (5,3)
 	//(3,3) - > (4,2)
@@ -186,7 +186,7 @@ void rotationTest() {
 	}
 	
 	for (int i = 0; i < 7; i++) {
-		b1.setPiece(i);
+		b1.setPieceType(i);
 		cout << b1.getCurrentPiece().names[i] << " Left Rotation" << endl << b1.getCurrentPiece() << "***************";
 		for (int j = 0; j < 4; j++) {
 			b1.rotateLeft();

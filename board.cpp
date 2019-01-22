@@ -16,6 +16,7 @@ Board::Board() {
 	swap_hold = false;              //keep track of whether a piece was swapped with the held
 	pieceInPlay = false;            //track whether a tetronimo piece is currently in play
 	gameMode = 0;					//current play mode: 0 is menu, 1 is basic, 2 is item, 3 is 2-player basic, 4 is 2-player item
+	timesRotated = 0;
 }
 
 //NOTE: srand should only be called once; can be problematic if 2 player is implemented. call srand in main and generate within the board
@@ -42,25 +43,25 @@ bool Board::rotateRight(){
 
 	//check for out of bounds coordinates and attempt to wallkick (move coordinates back in range)
 	for (int i = 0; i < 4; i++) {
-		if (coords[i][0] < 0) {
+		if (coords[i][0] < 0) {	//left side out of bounds
 			int t = coords[i][0];
 			for (int j = 0; j < 4; j++) {
 				coords[j][0] += (t * -1);
 			}
 		}
-		else if (coords[i][0] > 9) {
+		else if (coords[i][0] > GRID_WIDTH-1) {	//right side out of bounds
 			int t = coords[i][0];
 			for (int j = 0; j < 4; j++) {
 				coords[j][0] -= (t - 9);
 			}
 		}
-		if (coords[i][1] < 0) {
+		if (coords[i][1] < 0) {	//top out of bounds
 			int t = coords[i][1];
 			for (int j = 0; j < 4; j++) {
 				coords[j][1] += (t * -1);
 			}
 		}
-		else if (coords[i][1] > 23) {
+		else if (coords[i][1] > GRID_HEIGHT-1) {	//bottom out of bounds
 			int t = coords[i][1];
 			for (int j = 0; j < 4; j++) {
 				coords[j][0] -= (t - 23);
@@ -79,7 +80,7 @@ bool Board::rotateRight(){
 	for (int i = 0; i < 4; i++) {
 		tet.setCoords(i, coords[i][0], coords[i][1]);
 	}
-
+	timesRotated++;
 	return true;
 }
 
@@ -92,26 +93,26 @@ bool Board::rotateLeft() {
 	}
 
 	//check for out of bounds coordinates and attempt to wallkick (move coordinates back in range)
-	for (int i = 0; i < 4; i++) {
-		if (coords[i][0] < 0) {
+	for (int i = 0; i < 4; i++) {	
+		if (coords[i][0] < 0) {		//out of bounds (left side)
 			int t = coords[i][0];
 			for (int j = 0; j < 4; j++) {
 				coords[j][0] += (t * -1);
 			}
 		}
-		else if (coords[i][0] > 9) {
+		else if (coords[i][0] > GRID_WIDTH - 1) { //out of bounds (right side)
 			int t = coords[i][0];
 			for (int j = 0; j < 4; j++) {
 				coords[j][0] -= (t - 9);
 			}
 		}
-		if (coords[i][1] < 0) {
+		if (coords[i][1] < 0) {	//out of bounds (top)
 			int t = coords[i][1];
 			for (int j = 0; j < 4; j++) {
 				coords[j][1] += (t * -1);
 			}
 		}
-		else if (coords[i][1] > 23) {
+		else if (coords[i][1] > GRID_HEIGHT - 1) { //out of bounds (bottom)
 			int t = coords[i][1];
 			for (int j = 0; j < 4; j++) {
 				coords[j][0] -= (t - 23);
@@ -130,7 +131,7 @@ bool Board::rotateLeft() {
 	for (int i = 0; i < 4; i++) {
 		tet.setCoords(i, coords[i][0], coords[i][1]);
 	}
-
+	timesRotated++;
 	return true;
 }
 
@@ -157,9 +158,24 @@ int Board::rotateYRight(int i) {
 //TODO: Finish implementing function
 void Board::dropPiece(){
     //keep dropping the piece until its pieces can't go any further.
+	Tetromino temp = tet;
     while(true){
         //check if it can be moved down
+		bool canMove = true;
         //move it down
+		for (int i = 0; i < 4; i++) {
+			if (tet.getY(i) + 1 > (GRID_HEIGHT - 1) || grid[tet.getX(i)][tet.getY(i) + 1].is_set) {
+				canMove = false;
+			}
+		}
+		if (canMove) {	//if the pieces below
+			for (int i = 0; i < 4; i++) {
+				tet.setY(i, tet.getY(i) + 1);
+			}
+		}
+		else { //if it's at the final position, color in the piece. reset the colors at its previous position (before dropping)
+
+		}
     }
 	//set the piece
 }
@@ -200,7 +216,44 @@ bool Board::moveRight(){
     return true;
 }
 
+bool Board::moveDown() {
+	//check if piece can be moved. return false if out of bounds or piece is occupied
+	for (int i = 0; i < 4; i++) {
+		if (tet.getY(i) + 1 >(GRID_HEIGHT - 1) || grid[tet.getX(i)][tet.getY(i) + 1].is_set) {
+			return false;
+		}
+	}
+
+	//move the pieces
+	for (int i = 0; i < 4; i++) {
+		tet.setY(i, tet.getY(i) + 1);
+		//change the new position's color
+		//reset the old piece
+	}
+
+	return true;
+}
+
+bool Board::moveUp() {
+	//check if piece can be moved. return false if out of bounds or piece is occupied
+	for (int i = 0; i < 4; i++) {
+		if (tet.getY(i) - 1 > 0 || grid[tet.getX(i)][tet.getY(i) - 1].is_set) {
+			return false;
+		}
+	}
+
+	//move the pieces
+	for (int i = 0; i < 4; i++) {
+		tet.setY(i, tet.getY(i) - 1);
+		//change the new position's color
+		//reset the old piece
+	}
+
+	return true;
+}
+
 //TODO: Finish implementing function
+//should be called by main program. set piece, clear lines, then next piece.
 int Board::clearLines(){
     int numRowsCleared = 0;
     int startingRow = -1;
@@ -277,11 +330,29 @@ void Board::setPiece() {
 	//change coordinates of the grid and color
 	for (int i = 0; i < 4; i++) {
 		Piece& temp = grid[tet.getX(i)][tet.getY(i)];
-		temp.setColor(tet.getColor());
+		temp.setColorSolid(tet.getColor());
 	}
 
 	swap_hold = false;
-	nextPiece();
+	//nextPiece();	//TODO: have main program call this instead
+}
+
+void Board::pulse() {
+	//if the piece can move down, move down
+	if (!moveDown()) {
+		//if rotated (check rotation limit) don't lock it
+		//if not rotated lock and next piece
+	}
+	else if (timesRotated > 0) {
+		timesRotated = 0;
+		return;
+	}
+	else {
+		setPiece();
+	}
+
+	//if it can't move down, if the piece hasn't rotated, lock it.
+
 }
 
 //DEBUG FUNCTION
@@ -300,7 +371,7 @@ Tetromino Board::getHeldPiece() {
 }
 
 //DEBUG FUNCTION
-void Board::setPiece(int i) {
+void Board::setPieceType(int i) {
 	tet = Tetromino(i);
 }
 
@@ -327,4 +398,9 @@ int Board::testRotateYRight(int i) {
 //DEBUG FUNCTION
 void Board::setGridPiece(int x, int y) {
 	grid[x][y].setColorSolid(Color::Magenta);
+}
+
+//DEBUG FUNCTION
+Piece Board::getGridPiece(int x, int y) {
+	return grid[x][y];
 }
